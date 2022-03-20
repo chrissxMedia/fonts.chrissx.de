@@ -21,6 +21,9 @@ var fonts = map[string]struct {
 	"/ubuntu": {name: "Ubuntu", online: [][2]string{
 		{"https://fonts.gstatic.com/s/ubuntu/v15/4iCs6KVjbNBYlgoKfw72nU6AFw.woff2", "woff2"},
 	}},
+	"/unifont": {name: "Unifont", online: [][2]string{
+		{"http://unifoundry.com/pub/unifont/unifont-14.0.02/font-builds/unifont-14.0.02.ttf", "truetype"},
+	}},
 	"/minecraft": {name: "Minecraft", online: [][2]string{
 		{"https://db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.woff", "woff"},
 	}},
