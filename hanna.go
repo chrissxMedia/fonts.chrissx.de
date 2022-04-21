@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var fonts = map[string]struct {
@@ -45,9 +48,18 @@ func getCss(url string) string {
 }
 
 func main() {
+	var requests = prometheus.NewCounterVec(prometheus.CounterOpts{
+		Name: "hanna_requests",
+		Help: "Requests",
+	}, []string{"path"})
+	prometheus.MustRegister(requests)
+
+	http.Handle("/metrics", promhttp.Handler())
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Got a %s request from %s: %s (%s)",
 			r.Proto, r.RemoteAddr, r.URL, r.Host)
+		requests.WithLabelValues(r.URL.Path).Inc()
 		if r.URL.Path == "/" {
 			w.Header().Add("content-type", "text/css")
 			for k := range fonts {
