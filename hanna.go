@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"log"
 	"net/http"
@@ -25,15 +26,19 @@ var fonts = map[string]struct {
 		{"https://fonts.gstatic.com/s/ubuntu/v15/4iCs6KVjbNBYlgoKfw72nU6AFw.woff2", "woff2"},
 	}},
 	"/unifont": {name: "Unifont", online: [][2]string{
-		{"http://unifoundry.com/pub/unifont/unifont-14.0.02/font-builds/unifont-14.0.02.ttf", "truetype"},
+		{"fonts/unifont-14.0.03.otf", "opentype"},
+		{"fonts/unifont-14.0.03.ttf", "truetype"},
 	}},
 	"/minecraft": {name: "Minecraft", online: [][2]string{
 		{"https://db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.woff", "woff"},
 	}},
 	"/woodcut": {name: "Woodcut", online: [][2]string{
-		{"https://zerm.eu/Woodcut.ttf", "truetype"},
+		{"fonts/Woodcut.ttf", "truetype"},
 	}},
 }
+
+//go:embed fonts
+var f embed.FS
 
 func getCss(url string) string {
 	font := fonts[url]
@@ -68,6 +73,8 @@ func main() {
 		} else if _, ok := fonts[r.URL.Path]; ok {
 			w.Header().Add("content-type", "text/css")
 			fmt.Fprint(w, getCss(r.URL.Path))
+		} else if data, err := f.ReadFile(r.URL.Path[1:]); err == nil {
+			w.Write(data)
 		} else {
 			w.WriteHeader(404)
 			fmt.Fprint(w, "Font \""+r.URL.Path+"\" not found.")

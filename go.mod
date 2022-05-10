@@ -1,4 +1,4 @@
-module github.com/chrissxMedia/fonts.chrissx.de
+module github.com/chrissxMedia/hanna
 
 go 1.16
 
