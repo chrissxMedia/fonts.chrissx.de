@@ -47,8 +47,8 @@ String getCss(MapEntry<String, Set<List<String>>> font) {
 
 void main() {
   Directory('dist').createSync();
-  File('dist/index.css')
+  File('dist/index')
       .writeAsString(fonts.entries.map(getCss).reduce((x, y) => '$x\n$y'));
   for (final font in fonts.entries)
-    File('dist/${font.key.toLowerCase()}.css').writeAsString(getCss(font));
+    File('dist/${font.key.toLowerCase()}').writeAsString(getCss(font));
 }
