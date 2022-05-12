@@ -1,0 +1,5 @@
+#!/bin/sh
+set -uxe
+rm -rf dist
+dart run deploy.dart
+cp -r fonts dist/fonts
