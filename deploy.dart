@@ -36,10 +36,10 @@ List<String> woff2(String url) => [url, 'woff2'];
 
 String getCss(MapEntry<String, Set<List<String>>> font) {
   var css = '@font-face {';
-  css += 'font-family: ' ' + font.key + ' '; ';
-  css += 'src: local(' ' + font.key + ' ')';
+  css += 'font-family: \' ' + font.key + ' \'; ';
+  css += 'src: local(\' ' + font.key + ' \')';
   for (final file in font.value) {
-    css += ', url(' + file[0] + ') format(' ' + file[1] + ' ')';
+    css += ', url(' + file[0] + ') format(\' ' + file[1] + ' \')';
   }
   css += '; }';
   return css;
