@@ -28,27 +28,27 @@ final fonts = {
   },
 };
 
-List<String> eot(String url) => [url, 'embedded-opentype'];
-List<String> otf(String url) => [url, 'opentype'];
-List<String> ttf(String url) => [url, 'truetype'];
-List<String> woff(String url) => [url, 'woff'];
-List<String> woff2(String url) => [url, 'woff2'];
+(String, String) eot(String url) => (url, 'embedded-opentype');
+(String, String) otf(String url) => (url, 'opentype');
+(String, String) ttf(String url) => (url, 'truetype');
+(String, String) woff(String url) => (url, 'woff');
+(String, String) woff2(String url) => (url, 'woff2');
 
-String getCss(MapEntry<String, Set<List<String>>> font) {
-  var css = '@font-face {';
-  css += 'font-family: \'' + font.key + '\'; ';
-  css += 'src: local(\'' + font.key + '\')';
-  for (final file in font.value) {
-    css += ', url(' + file[0] + ') format(\'' + file[1] + '\')';
+String getCss(MapEntry<String, Set<(String, String)>> font) {
+  var css = '@font-face{';
+  css += 'font-family:${font.key};';
+  css += 'src:local(${font.key})';
+  for (final (url, format) in font.value) {
+    css += ',url($url)format($format)';
   }
-  css += '; }';
+  css += '}';
   return css;
 }
 
 void main() {
   Directory('dist').createSync();
   File('dist/index')
-      .writeAsString(fonts.entries.map(getCss).reduce((x, y) => '$x\n$y'));
+      .writeAsString(fonts.entries.map(getCss).reduce((x, y) => '$x$y'));
   for (final font in fonts.entries)
     File('dist/${font.key.toLowerCase()}').writeAsString(getCss(font));
 }
