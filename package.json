@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "node deploy.js"
+  },
+  "dependencies": {
+    "yaml": "^2.0.0"
+  }
+}
