@@ -4,9 +4,9 @@ A simple font library.
 
 ## Licensing
 
-The code (`deploy.dart`) is [AGPLv3](LICENSE) licensed. All the produced CSS,
-i.e. the files accessible at `fonts.chrissx.de/<font>`, shall be considered
-public domain or [equivalent](https://opensource.org/license/unlicense).
+The code (`deploy.js`) is [AGPLv3](LICENSE)-licensed. The produced CSS, i.e. the
+files accessible at `fonts.chrissx.de/<font>`, shall be considered public domain
+or [equivalent](https://opensource.org/license/unlicense).
 
 ### Fonts
 
