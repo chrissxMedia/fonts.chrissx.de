@@ -16,7 +16,11 @@ Unifont:
   otf: fonts/unifont-14.0.03.otf
   ttf: fonts/unifont-14.0.03.ttf
 Minecraft:
+  local: Minecraft Seven v2
+  local: Minecraft Seven
+  local: Mojangles
   local: Minecraft
+  otf: https://www.minecraftplot.com/fonts/mojangles.otf
   eot: https://db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.eot?#iefix
   woff2: https://db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.woff2
   ttf: https://db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.ttf
