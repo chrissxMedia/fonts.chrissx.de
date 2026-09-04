@@ -8,13 +8,16 @@ const formatLut = {
     ttf: 'truetype',
 };
 
+function formatToCss([format, url]) {
+    if (format === 'local') return `local(${url})`;
+    return `url(${url})format(${formatLut[format] ?? format})`;
+}
+
 function getCss(font, formats) {
+    formats = [['local', font], ...formats];
     let css = '@font-face{';
     css += `font-family:${font};`;
-    css += `src:local(${font})`;
-    for (const [format, url] of formats) {
-        css += `,url(${url})format(${formatLut[format] ?? format})`;
-    }
+    css += `src:${formats.map(formatToCss).join(',')}`;
     css += '}';
     return css;
 }
