@@ -14,7 +14,6 @@ function formatToCss([format, url]) {
 }
 
 function getCss(font, formats) {
-    formats = [['local', font], ...formats];
     let css = '@font-face{';
     css += `font-family:${font};`;
     css += `src:${formats.map(formatToCss).join(',')}`;
