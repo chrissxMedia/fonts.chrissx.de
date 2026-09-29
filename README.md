@@ -27,8 +27,7 @@ The following fonts are hosted by us at `fonts.chrissx.de/fonts/`:
 
 Run this on Linux from the repository root. Set `version` to either `14.0.03`
 or `18.0.01`. It needs `curl`, `sha256sum`, GCC, Make, Perl, and FontForge.
-The 14.0.03 OTF is checked byte for byte. The 18.0.01 build copies its OTF and
-TTF into `fonts/`; neither TTF is compared byte for byte.
+It checks the OTF byte for byte and builds the TTF without comparing it.
 
 ```bash
 set -euo pipefail
@@ -66,13 +65,8 @@ fi
 make -C "$otfdir" otf
 make -C ttfsrc ttf
 
-if [ "$version" = 14.0.03 ]; then
-  cmp "$otfdir/unifont.otf" "$repo/fonts/unifont-$version.otf"
-else
-  cp "$otfdir/unifont.otf" "$repo/fonts/unifont-$version.otf"
-  cp ttfsrc/unifont.ttf "$repo/fonts/unifont-$version.ttf"
-fi
-echo "Built fonts are in $work/unifont-$version/font"
+cmp "$otfdir/unifont.otf" "$repo/fonts/unifont-$version.otf"
+echo "OTF matches; rebuilt fonts are in $work/unifont-$version/font"
 ```
 
 The TTF is sensitive to FontForge's version and timestamps. For 14.0.03,
