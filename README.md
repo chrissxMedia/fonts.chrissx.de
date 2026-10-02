@@ -25,36 +25,53 @@ The following fonts are hosted by us at `fonts.chrissx.de/fonts/`:
 
 ### Rebuild Unifont
 
-Run this on Linux from the repository root. It needs `curl`, `sha256sum`, GCC,
-Make, Perl, and FontForge. It checks the OTF byte for byte and builds
-the TTF without comparing it.
+Run this on Linux from the repository root. Set `version` to either `14.0.03`
+or `18.0.01`. It needs `curl`, `sha256sum`, GCC, Make, Perl, and FontForge.
+It checks the OTF byte for byte and builds the TTF without comparing it.
 
 ```bash
 set -euo pipefail
 repo=$PWD
+version=18.0.01
+case "$version" in
+  14.0.03)
+    sha256=d4000ad1858a45b80980a3f6b91aa3cd73855d01e0f8bd4785f8c65206e49feb
+    otfdir=ttfsrc
+    ;;
+  18.0.01)
+    sha256=eab60847aac34c8768765cecc7821faf50de2636187b452b9b5fa50a12b00bc3
+    otfdir=otfsrc
+    ;;
+  *) echo "Unsupported Unifont version: $version" >&2; exit 1 ;;
+esac
 work=$(mktemp -d)
 cd "$work"
 
-curl -fsSLo unifont.tar.gz https://ftp.gnu.org/gnu/unifont/unifont-14.0.03/unifont-14.0.03.tar.gz
-echo 'd4000ad1858a45b80980a3f6b91aa3cd73855d01e0f8bd4785f8c65206e49feb  unifont.tar.gz' | sha256sum -c -
+curl -fsSLo unifont.tar.gz "https://ftp.gnu.org/gnu/unifont/unifont-$version/unifont-$version.tar.gz"
+echo "$sha256  unifont.tar.gz" | sha256sum -c -
 tar xzf unifont.tar.gz
 
-make -C unifont-14.0.03/src hex2otf
-mkdir -p unifont-14.0.03/bin
-install -m 755 unifont-14.0.03/src/{hex2otf,hex2sfd} unifont-14.0.03/bin/
+make -C "unifont-$version/src" hex2otf
+mkdir -p "unifont-$version/bin"
+install -m 755 "unifont-$version/src/hex2otf" "unifont-$version/src/hex2sfd" "unifont-$version/bin/"
 
-cd unifont-14.0.03/font
+cd "unifont-$version/font"
 LC_ALL=C sort plane00/{unifont-base,spaces,plane00-nonprinting,custom00}.hex > ttfsrc/unifont.hex
 cat plane00/copyleft.hex >> ttfsrc/unifont.hex
 cp plane00/plane00-combining.txt ttfsrc/combining.txt
-make -C ttfsrc otf ttf
+if [ "$otfdir" != ttfsrc ]; then
+  cp ttfsrc/{unifont.hex,combining.txt} "$otfdir/"
+fi
+make -C "$otfdir" otf
+make -C ttfsrc ttf
 
-cmp ttfsrc/unifont.otf "$repo/fonts/unifont-14.0.03.otf"
-echo "OTF matches; rebuilt fonts are in $work/unifont-14.0.03/font/ttfsrc"
+cmp "$otfdir/unifont.otf" "$repo/fonts/unifont-$version.otf"
+echo "OTF matches; rebuilt fonts are in $work/unifont-$version/font"
 ```
 
-The TTF is sensitive to FontForge's version and timestamps. FontForge 20201107
-produces a different character map, while 20251009 changes the outlines.
+The TTF is sensitive to FontForge's version and timestamps. For 14.0.03,
+FontForge 20201107 produces a different character map, while 20251009 changes
+the outlines.
 FontForge 20220308 matches the font data, but an exact match also requires its
 2022-03-08 build timestamp and the font's creation and modification timestamps
 from 2022-05-10. To match the checked-in TTF, set `ModificationTime` in the

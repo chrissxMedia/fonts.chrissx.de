@@ -13,8 +13,8 @@ Ubuntu:
   ttf: https://fonts.gstatic.com/s/ubuntu/v21/4iCs6KVjbNBYlgo6eA.ttf
 Unifont:
   local: Unifont
-  otf: fonts/unifont-14.0.03.otf
-  ttf: fonts/unifont-14.0.03.ttf
+  otf: fonts/unifont-18.0.01.otf
+  ttf: fonts/unifont-18.0.01.ttf
 Minecraft:
   local: Minecraft Seven v2
   local: Minecraft Seven
