@@ -1,4 +1,5 @@
 {
+  "name": "fonts.chrissx.de",
   "type": "module",
   "scripts": {
     "build": "node deploy.js"
