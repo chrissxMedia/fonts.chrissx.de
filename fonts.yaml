@@ -21,7 +21,7 @@ Unifont:
     woff2: fonts/unifont-18.0.01-rest.woff2
     otf: fonts/unifont-18.0.01-rest.otf
     ttf: fonts/unifont-18.0.01-rest.ttf
-    unicode-range: U+0370-1CFF,U+1F00-1FFF,U+2C00-A71F,U+A800-AB2F,U+AB70-FAFF,U+FB07-10FFFF
+    unicode-range: U+0370-1CFF,U+1F00-1FFF,U+2C00-A71F,U+A800-AB2F,U+AB70-FAFF,U+FB07-FFFF,U+1F12F
 Minecraft:
   local: Minecraft Seven v2
   local: Minecraft Seven
