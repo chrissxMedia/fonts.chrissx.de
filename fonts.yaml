@@ -12,9 +12,16 @@ Ubuntu:
   woff2: https://fonts.gstatic.com/s/ubuntu/v21/4iCs6KVjbNBYlgoKfw72nU6AFw.woff2
   ttf: https://fonts.gstatic.com/s/ubuntu/v21/4iCs6KVjbNBYlgo6eA.ttf
 Unifont:
-  local: Unifont
-  otf: fonts/unifont-18.0.01.otf
-  ttf: fonts/unifont-18.0.01.ttf
+  - local: Unifont
+    woff2: fonts/unifont-18.0.01-latin-symbols.woff2
+    otf: fonts/unifont-18.0.01-latin-symbols.otf
+    ttf: fonts/unifont-18.0.01-latin-symbols.ttf
+    unicode-range: U+0000-036F,U+1D00-1EFF,U+2000-2BFF,U+A720-A7FF,U+AB30-AB6F,U+FB00-FB06
+  - local: Unifont
+    woff2: fonts/unifont-18.0.01-rest.woff2
+    otf: fonts/unifont-18.0.01-rest.otf
+    ttf: fonts/unifont-18.0.01-rest.ttf
+    unicode-range: U+0370-1CFF,U+1F00-1FFF,U+2C00-A71F,U+A800-AB2F,U+AB70-FAFF,U+FB07-10FFFF
 Minecraft:
   local: Minecraft Seven v2
   local: Minecraft Seven

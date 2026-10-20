@@ -2,7 +2,8 @@
   "name": "fonts.chrissx.de",
   "type": "module",
   "scripts": {
-    "build": "node deploy.js"
+    "build": "node deploy.js",
+    "rebuild-unifont": "node rebuild-unifont.js"
   },
   "dependencies": {
     "yaml": "^2.0.0"
